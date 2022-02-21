@@ -9,6 +9,11 @@ const resetModalBtn = document.querySelector('.reset-modal button');
 const modalBtn = document.querySelector('.modal button');
 const modalText = document.querySelector('.modal p');
 const overlay = document.querySelector('.overlay');
+const table = document.querySelector('.table');
+const win = document.querySelector('.win');
+const draw = document.querySelector('.draw');
+// const tableChildren = table.children;
+let localArr = [];
 let xStepCount = 0;
 let oStepCount = 0;
 let winner = '';
@@ -48,6 +53,8 @@ resetModalBtn.addEventListener('click', () => {
     overlay.classList.remove('active');
 })
 
+// writeResult(item);
+
 // functions
 function move(item) {
     if (item.innerHTML == 'x' || item.innerHTML == 'o') {
@@ -77,6 +84,7 @@ function showResetModal(info, steps) {
    if (info) {
     resetModal.classList.add('active');
     resetModalText.innerHTML = `победили ${info} за ${steps} шагов`;
+    win.play();
     overlay.classList.add('active');
    } else {
     resetModal.classList.add('active');
@@ -101,8 +109,12 @@ function checkDraw() {
     let checkCount = 0;
     for (let i = 0; i < cells.length; i++) {
        (cells[i].innerHTML == 'x' || cells[i].innerHTML == 'o') ? ++checkCount : null;
-       console.log(checkCount);
     }
-    (checkCount == 9) ? showResetModal() : null;
+    if (checkCount == 9) { 
+        showResetModal();
+        draw.play(); 
+    };
 }   
+
+
 
